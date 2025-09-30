@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FaMagnifyingGlass, FaRegHeart } from "react-icons/fa6"; 
 import { HiOutlineShoppingCart } from "react-icons/hi";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   const [language, setLanguage] = useState("en");
@@ -53,10 +54,10 @@ const Navbar = () => {
           <h1 className="text-2xl font-medium">Exclusive</h1>
 
           <div className="flex gap-8">
-            <a href="" className="hover:underline hover:decoration-gray-400 decoration-2 underline-offset-4 transition-all duration-300 ease-in-out">Home</a>
-            <a href="" className="hover:underline hover:decoration-gray-400 decoration-2 underline-offset-4 transition-all duration-300 ease-in-out">Contact</a>
-            <a href="" className="hover:underline hover:decoration-gray-400 decoration-2 underline-offset-4 transition-all duration-300 ease-in-out">About</a>
-            <a href="" className="hover:underline hover:decoration-gray-400 decoration-2 underline-offset-4 transition-all duration-300 ease-in-out">Sign Up</a>
+            <NavLink to='/' className="hover:underline hover:decoration-gray-400 decoration-2 underline-offset-4 transition-all duration-300 ease-in-out">Home</NavLink>
+            <NavLink to='/contact' className="hover:underline hover:decoration-gray-400 decoration-2 underline-offset-4 transition-all duration-300 ease-in-out">Contact</NavLink>
+            <NavLink to='/about' className="hover:underline hover:decoration-gray-400 decoration-2 underline-offset-4 transition-all duration-300 ease-in-out">About</NavLink>
+            <NavLink to='/signUp' className="hover:underline hover:decoration-gray-400 decoration-2 underline-offset-4 transition-all duration-300 ease-in-out">Sign Up</NavLink>
           </div>
         </div>
 
@@ -77,7 +78,7 @@ const Navbar = () => {
           <HiOutlineShoppingCart className="text-lg cursor-pointer hover:text-blue-500" />
         </div>
       </div>
-      <hr className="mt-3 text-gray-200" />
+      <hr className="mt-3 text-gray-400" />
     </div>
   );
 };

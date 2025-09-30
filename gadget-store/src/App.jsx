@@ -6,15 +6,17 @@ import About from './pages/About'
 import Contact from './pages/Contact'
 import Product from './pages/Product'
 import Cart from './pages/Cart'
-import Login from './pages/Login'
+import SignUp from './pages/SignUp'
 import Orders from './pages/Orders'
 import PlaceOrders from './pages/PlaceOrders'
 import Navbar from './components/Navbar';
+import Hero from './components/Hero';
 
 const App = () => {
   return (
       <div>
         <Navbar />
+        <Hero />
         <Routes>
             <Route path='/' element={<Home/>} />
             <Route path='/collection' element={<Collection/>} />
@@ -22,7 +24,7 @@ const App = () => {
             <Route path='/contact' element={<Contact/>} />
             <Route path='/product/:productId' element={<Product/>} />
             <Route path='/cart' element={<Cart/>} />
-            <Route path='/login' element={<Login/>} />
+            <Route path='/signUp' element={<SignUp/>} />
             <Route path='/orders' element={<Orders/>} />
             <Route path='/place-orders' element={<PlaceOrders/>} />
         </Routes>
