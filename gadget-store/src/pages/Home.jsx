@@ -1,10 +1,10 @@
 import React from 'react'
-import {Routes, Route} from 'react-router-dom'
+import Hero from '../components/Hero'
 
 const Home = () => {
   return (
     <div>
-      
+      <Hero />
     </div>
   )
 }
