@@ -10,13 +10,11 @@ import SignUp from './pages/SignUp'
 import Orders from './pages/Orders'
 import PlaceOrders from './pages/PlaceOrders'
 import Navbar from './components/Navbar';
-import Hero from './components/Hero';
 
 const App = () => {
   return (
       <div>
         <Navbar />
-        <Hero />
         <Routes>
             <Route path='/' element={<Home/>} />
             <Route path='/collection' element={<Collection/>} />
