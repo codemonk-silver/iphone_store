@@ -182,6 +182,16 @@ const ProductItem = () => {
         </div>
       </div>
 
+      {/* View All Products Button */}
+      <div className="flex justify-center mt-12">
+        <button className="bg-red-600 text-white px-12 py-3 rounded-md font-medium hover:bg-red-700 transition">
+          View All Products
+        </button>
+      </div>
+
+      {/* Horizontal Line */}
+      <hr className="mt-12 border-gray-300" />
+
       {/* Image Modal */}
       {selectedImage && (
         <div
