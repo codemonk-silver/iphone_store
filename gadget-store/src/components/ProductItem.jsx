@@ -64,7 +64,7 @@ const ProductItem = () => {
   };
 
   return (
-    <div className="px-4 sm:px-6 md:px-12 lg:px-20 xl:px-32 py-8 sm:py-12 relative w-full overflow-hidden">
+    <div className="px-4 sm:px-6 md:px-12 lg:px-20 xl:px-40 py-8 sm:py-18 relative w-full overflow-hidden">
       <div className="flex gap-2 items-center">
         <div className="w-2 sm:w-3 h-6 sm:h-7 bg-red-600 rounded-sm"></div>
         <p className="text-red-600 font-semibold text-xs sm:text-sm md:text-base">Today's</p>
