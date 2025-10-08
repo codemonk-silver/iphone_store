@@ -1,4 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from "react";
+import Slider from "react-slick";
+import { FaHeart, FaEye, FaStar, FaTimes, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const ProductItem = () => {
   const targetDate = new Date("2025-12-31T23:59:59").getTime();
@@ -28,208 +32,176 @@ const ProductItem = () => {
   }, []);
 
   const products = [
-    { id: 1, name: "Product 1", price: "39.99", oldPrice: "59.99", discount: "30% OFF", image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400", rating: 4 },
-    { id: 2, name: "Product 2", price: "49.99", oldPrice: "69.99", discount: "25% OFF", image: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400", rating: 5 },
-    { id: 3, name: "Product 3", price: "29.99", oldPrice: "49.99", discount: "40% OFF", image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400", rating: 3 },
-    { id: 4, name: "Product 4", price: "59.99", oldPrice: "69.99", discount: "15% OFF", image: "https://images.unsplash.com/photo-1560343090-f0409e92791a?w=400", rating: 4 },
-    { id: 5, name: "Product 5", price: "44.99", oldPrice: "59.99", discount: "20% OFF", image: "https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=400", rating: 5 },
-    { id: 6, name: "Product 6", price: "34.99", oldPrice: "49.99", discount: "10% OFF", image: "https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=400", rating: 3 },
-    { id: 7, name: "Product 7", price: "24.99", oldPrice: "39.99", discount: "35% OFF", image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400", rating: 4 },
-    { id: 8, name: "Product 8", price: "54.99", oldPrice: "109.99", discount: "50% OFF", image: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=400", rating: 5 },
+    { id: 1, name: "Wireless Headphones", price: "39.99", oldPrice: "59.99", discount: "30% OFF", image: "https://images.pexels.com/photos/3825517/pexels-photo-3825517.jpeg?auto=compress&cs=tinysrgb&w=400", rating: 4, reviews: 128 },
+    { id: 2, name: "Smart Watch", price: "49.99", oldPrice: "69.99", discount: "25% OFF", image: "https://images.pexels.com/photos/393047/pexels-photo-393047.jpeg?auto=compress&cs=tinysrgb&w=400", rating: 5, reviews: 254 },
+    { id: 3, name: "Camera Lens", price: "29.99", oldPrice: "49.99", discount: "40% OFF", image: "https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?auto=compress&cs=tinysrgb&w=400", rating: 3, reviews: 87 },
+    { id: 4, name: "Laptop Stand", price: "59.99", oldPrice: "69.99", discount: "15% OFF", image: "https://images.pexels.com/photos/7974/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=400", rating: 4, reviews: 112 },
+    { id: 5, name: "Gaming Mouse", price: "44.99", oldPrice: "59.99", discount: "20% OFF", image: "https://images.pexels.com/photos/2115256/pexels-photo-2115256.jpeg?auto=compress&cs=tinysrgb&w=400", rating: 5, reviews: 300 },
+    { id: 6, name: "USB Microphone", price: "34.99", oldPrice: "49.99", discount: "10% OFF", image: "https://images.pexels.com/photos/4226256/pexels-photo-4226256.jpeg?auto=compress&cs=tinysrgb&w=400", rating: 3, reviews: 65 },
+    { id: 7, name: "Bluetooth Speaker", price: "24.99", oldPrice: "39.99", discount: "35% OFF", image: "https://images.pexels.com/photos/1279365/pexels-photo-1279365.jpeg?auto=compress&cs=tinysrgb&w=400", rating: 4, reviews: 143 },
+    { id: 8, name: "Mechanical Keyboard", price: "54.99", oldPrice: "109.99", discount: "50% OFF", image: "https://images.pexels.com/photos/1194713/pexels-photo-1194713.jpeg?auto=compress&cs=tinysrgb&w=400", rating: 5, reviews: 412 },
+    { id: 9, name: "Webcam HD", price: "64.99", oldPrice: "119.99", discount: "45% OFF", image: "https://images.pexels.com/photos/5082579/pexels-photo-5082579.jpeg?auto=compress&cs=tinysrgb&w=400", rating: 5, reviews: 198 },
+    { id: 10, name: "External SSD", price: "74.99", oldPrice: "99.99", discount: "30% OFF", image: "https://images.pexels.com/photos/4316/technology-computer-chips-gigabyte.jpg?auto=compress&cs=tinysrgb&w=400", rating: 4, reviews: 152 },
   ];
 
   const [selectedImage, setSelectedImage] = useState(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [slidesToShow, setSlidesToShow] = useState(4);
-  const [isAutoPlay, setIsAutoPlay] = useState(true);
+  const sliderRef = useRef(null);
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 640) {
-        setSlidesToShow(1);
-      } else if (window.innerWidth < 768) {
-        setSlidesToShow(2);
-      } else if (window.innerWidth < 1024) {
-        setSlidesToShow(3);
-      } else {
-        setSlidesToShow(4);
-      }
-    };
-
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  useEffect(() => {
-    if (!isAutoPlay) return;
-    const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % products.length);
-    }, 3000);
-    return () => clearInterval(timer);
-  }, [products.length, isAutoPlay]);
-
-  const handlePrevious = () => {
-    setIsAutoPlay(false);
-    setCurrentIndex((prev) => (prev - 1 + products.length) % products.length);
-  };
-
-  const handleNext = () => {
-    setIsAutoPlay(false);
-    setCurrentIndex((prev) => (prev + 1) % products.length);
-  };
-
-  const getVisibleProducts = () => {
-    const visible = [];
-    for (let i = 0; i < slidesToShow; i++) {
-      visible.push(products[(currentIndex + i) % products.length]);
-    }
-    return visible;
+  const settings = {
+    dots: false,
+    infinite: true,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    autoplay: false,
+    speed: 800,
+    cssEase: "ease-in-out",
+    arrows: false,
+    responsive: [
+      { breakpoint: 1280, settings: { slidesToShow: 3 } },
+      { breakpoint: 1024, settings: { slidesToShow: 2 } },
+      { breakpoint: 640, settings: { slidesToShow: 1 } },
+    ],
   };
 
   return (
-    <div className="px-4 sm:px-6 md:px-12 lg:px-20 xl:px-40 py-8 md:py-12 bg-white">
-      {/* Section Header */}
+    <div className="px-4 sm:px-6 md:px-12 lg:px-20 xl:px-32 py-8 sm:py-12 relative w-full overflow-hidden">
       <div className="flex gap-2 items-center">
         <div className="w-2 sm:w-3 h-6 sm:h-7 bg-red-600 rounded-sm"></div>
-        <p className="text-red-600 font-semibold text-sm sm:text-base">Today's</p>
+        <p className="text-red-600 font-semibold text-xs sm:text-sm md:text-base">Today's</p>
       </div>
 
-      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-8 items-start sm:items-end md:items-center justify-between mt-4">
-        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-8 items-start sm:items-end md:items-center w-full sm:w-auto">
-          <p className="font-medium text-2xl sm:text-3xl">Flash Sales</p>
-          <div className="flex items-center gap-1 flex-wrap">
+      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mt-3 sm:mt-4 gap-3 sm:gap-4">
+        <div className="flex flex-col md:flex-row gap-3 sm:gap-4 md:gap-8 items-start md:items-center w-full lg:w-auto">
+          <h2 className="font-semibold text-xl sm:text-2xl md:text-3xl lg:text-4xl">Flash Sales</h2>
+
+          <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
             {["Days", "Hours", "Minutes", "Seconds"].map((label, index) => (
-              <React.Fragment key={label}>
+              <div key={label} className="flex items-center">
                 <div className="text-center">
-                  <p className="text-[10px] sm:text-xs text-gray-600">{label}</p>
-                  <p className="text-lg sm:text-xl md:text-2xl font-bold text-red-600">
+                  <p className="text-[10px] sm:text-xs md:text-sm text-gray-600">{label}</p>
+                  <p className="text-base sm:text-lg md:text-xl font-bold text-gray-900">
                     {String(Object.values(timeLeft)[index]).padStart(2, '0')}
                   </p>
                 </div>
                 {label !== "Seconds" && (
-                  <span className="text-lg sm:text-xl md:text-2xl font-bold text-red-600 mt-3 sm:mt-4 mx-0.5 sm:mx-1">:</span>
+                  <span className="text-base sm:text-lg md:text-xl font-bold text-red-600 ml-2 sm:ml-3">:</span>
                 )}
-              </React.Fragment>
+              </div>
             ))}
           </div>
         </div>
 
-        {/* Carousel Navigation Buttons */}
-        <div className="flex gap-2 self-end sm:self-auto">
+        <div className="flex gap-2 self-end lg:self-auto">
           <button
-            onClick={handlePrevious}
-            className="bg-gray-200 hover:bg-gray-300 p-2 sm:p-3 rounded-full transition"
+            onClick={() => sliderRef.current?.slickPrev()}
+            className="p-2 sm:p-2.5 md:p-3 bg-gray-200 rounded-full hover:bg-gray-300 transition-colors duration-200 active:scale-95"
             aria-label="Previous products"
           >
-            <svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
+            <FaChevronLeft className="text-sm sm:text-base md:text-lg" />
           </button>
           <button
-            onClick={handleNext}
-            className="bg-gray-200 hover:bg-gray-300 p-2 sm:p-3 rounded-full transition"
+            onClick={() => sliderRef.current?.slickNext()}
+            className="p-2 sm:p-2.5 md:p-3 bg-gray-200 rounded-full hover:bg-gray-300 transition-colors duration-200 active:scale-95"
             aria-label="Next products"
           >
-            <svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
+            <FaChevronRight className="text-sm sm:text-base md:text-lg" />
           </button>
         </div>
       </div>
 
-      {/* Product Carousel */}
-      {/* Product Carousel */}
-<div className="mt-6 md:mt-8 overflow-hidden relative">
-  <div
-    className={`flex transition-transform duration-700 ease-in-out`}
-    style={{
-      transform: `translateX(-${currentIndex * (100 / slidesToShow)}%)`,
-      width: `${(products.length / slidesToShow) * 100}%`,
-    }}
-  >
-    {products.map((product) => (
-      <div
-        key={product.id}
-        className={`flex-shrink-0 p-2 w-full sm:w-1/2 md:w-1/3 lg:w-1/4`}
-      >
-        <div className="group relative bg-gray-100 rounded-lg p-4 overflow-hidden">
-          {/* Discount Badge */}
-          <span className="absolute top-3 left-3 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded z-10">
-            {product.discount}
-          </span>
+      <div className="mt-6 sm:mt-8">
+        <Slider ref={sliderRef} {...settings}>
+          {products.map((product) => (
+            <div key={product.id} className="p-2 sm:p-3">
+              <div className="relative rounded-lg overflow-hidden group cursor-pointer flex flex-col">
+                <div className="relative bg-gray-100 flex flex-col justify-between items-center h-48 sm:h-56 md:h-64 lg:h-72 rounded-lg shadow-sm overflow-hidden">
+                  <span className="absolute top-2 left-2 bg-red-600 text-white text-[10px] sm:text-xs font-bold px-2 py-1 rounded z-10">
+                    {product.discount}
+                  </span>
 
-          {/* Heart & Eye Icons */}
-          <div className="absolute top-3 right-3 flex flex-col gap-2 z-10">
-            <button className="bg-white p-2 rounded-full shadow hover:bg-red-50 transition">
-              <svg className="w-4 h-4 text-gray-700" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
-              </svg>
-            </button>
-            <button className="bg-white p-2 rounded-full shadow hover:bg-red-50 transition">
-              <svg className="w-4 h-4 text-gray-700" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
-                <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
-              </svg>
-            </button>
-          </div>
+                  <div className="absolute top-2 right-2 flex flex-col gap-1.5 sm:gap-2 z-10">
+                    <button
+                      className="bg-white p-1.5 sm:p-2 rounded-full shadow-md hover:bg-gray-200 transition-colors duration-200 active:scale-95"
+                      aria-label="Add to favorites"
+                    >
+                      <FaHeart className="text-gray-700 text-xs sm:text-sm md:text-base" />
+                    </button>
+                    <button
+                      className="bg-white p-1.5 sm:p-2 rounded-full shadow-md hover:bg-gray-200 transition-colors duration-200 active:scale-95"
+                      aria-label="Quick view"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedImage(product.image);
+                      }}
+                    >
+                      <FaEye className="text-gray-700 text-xs sm:text-sm md:text-base" />
+                    </button>
+                  </div>
 
-          {/* Product Image */}
-          <div className="flex justify-center items-center h-56 cursor-pointer">
-            <img
-              src={product.image}
-              alt={product.name}
-              className="w-48 h-48 object-contain transition-transform duration-300 group-hover:scale-110"
-              onClick={() => setSelectedImage(product.image)}
-            />
-          </div>
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-36 lg:h-36 object-contain transition-transform duration-300 group-hover:scale-110 mt-6 sm:mt-8"
+                    onClick={() => setSelectedImage(product.image)}
+                    loading="lazy"
+                  />
 
-          {/* Add to Cart Button */}
-          <button className={`w-full bg-black text-white py-2.5 rounded-md font-medium hover:bg-gray-800 transition mt-2`}>
-            Add to Cart
-          </button>
-        </div>
+                  <button className="absolute bottom-0 left-0 right-0 bg-black text-white py-2 sm:py-2.5 font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-xs sm:text-sm md:text-base active:bg-gray-900">
+                    Add to Cart
+                  </button>
+                </div>
 
-        {/* Product Info */}
-        <div className="text-left mt-3">
-          <p className="font-semibold text-gray-800 text-base">{product.name}</p>
-          <div className="flex items-center gap-2 mt-1">
-            <p className="text-red-600 font-bold text-lg">${product.price}</p>
-            <p className="text-gray-400 line-through text-sm">${product.oldPrice}</p>
-          </div>
-          <div className="flex mt-1 text-yellow-400">
-            {Array.from({ length: product.rating }).map((_, i) => (
-              <svg key={i} className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-              </svg>
-            ))}
-          </div>
-        </div>
+                <div className="text-left mt-2 sm:mt-3 px-1">
+                  <p className="font-semibold text-xs sm:text-sm md:text-base truncate">{product.name}</p>
+                  <div className="flex items-center gap-2 mt-1">
+                    <p className="text-red-600 font-bold text-sm sm:text-base md:text-lg">
+                      ${product.price}
+                    </p>
+                    <p className="text-gray-400 line-through text-xs sm:text-sm">
+                      ${product.oldPrice}
+                    </p>
+                  </div>
+                  <div className="flex items-center mt-1 text-yellow-400 text-xs sm:text-sm">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <FaStar key={i} className={i < product.rating ? "text-yellow-400" : "text-gray-300"} />
+                    ))}
+                    <span className="text-gray-500 ml-1 text-[10px] sm:text-xs">
+                      ({product.reviews})
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </Slider>
       </div>
-    ))}
-  </div>
-</div>
 
-      {/* Image Modal */}
+      <div className="text-center mt-8 sm:mt-10">
+        <button className="bg-red-600 text-white px-6 sm:px-8 md:px-10 py-2.5 sm:py-3 md:py-3.5 rounded-md text-sm sm:text-base md:text-lg font-semibold hover:bg-red-700 transition-colors duration-200 active:scale-95 shadow-md">
+          View All Products
+        </button>
+      </div>
+
       {selectedImage && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4"
+          className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4"
           onClick={() => setSelectedImage(null)}
         >
           <div className="relative max-w-full max-h-full">
             <img
               src={selectedImage}
-              alt="Zoomed"
-              className="max-w-full max-h-[90vh] sm:max-w-[90vw] sm:max-h-[80vh] rounded-lg object-contain"
+              alt="Product preview"
+              className="max-w-[90vw] max-h-[80vh] sm:max-w-[85vw] sm:max-h-[85vh] md:max-w-[80vw] md:max-h-[80vh] rounded-lg object-contain"
             />
             <button
-              onClick={() => setSelectedImage(null)}
-              className="absolute top-1 right-1 sm:top-2 sm:right-2 text-white bg-red-600 rounded-full p-1.5 sm:p-2 hover:bg-red-700"
-              aria-label="Close image"
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedImage(null);
+              }}
+              className="absolute -top-2 -right-2 sm:top-2 sm:right-2 text-white text-xl sm:text-2xl md:text-3xl bg-red-600 rounded-full p-1.5 sm:p-2 hover:bg-red-700 transition-colors duration-200 active:scale-95 shadow-lg"
+              aria-label="Close preview"
             >
-              <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
+              <FaTimes />
             </button>
           </div>
         </div>

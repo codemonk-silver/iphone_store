@@ -9,8 +9,10 @@ import Cart from './pages/Cart'
 import SignUp from './pages/SignUp'
 import Orders from './pages/Orders'
 import PlaceOrders from './pages/PlaceOrders'
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
+import Navbar from './components/Navbar'
+import Footer from './components/Footer'
+import Login from './pages/Login'
+import Account from './pages/Account'
 
 const App = () => {
   return (
@@ -24,8 +26,10 @@ const App = () => {
             <Route path='/product/:productId' element={<Product/>} />
             <Route path='/cart' element={<Cart/>} />
             <Route path='/signUp' element={<SignUp/>} />
+            <Route path='/login' element={<Login />} />
             <Route path='/orders' element={<Orders/>} />
             <Route path='/place-orders' element={<PlaceOrders/>} />
+            <Route path='/account' element={<Account/>} />
         </Routes>
         <Footer />
     </div>

@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import Product4 from '../assets/product4.png';
+import React, { useEffect, useState } from "react";
+import Product4 from "../assets/product4.png";
 
 const Banner = () => {
-  // 🎯 Set your countdown target date here
   const targetDate = new Date("2025-12-31T23:59:59").getTime();
 
   const [timeLeft, setTimeLeft] = useState({
@@ -23,7 +22,9 @@ const Banner = () => {
       } else {
         setTimeLeft({
           days: Math.floor(distance / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          hours: Math.floor(
+            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+          ),
           minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
           seconds: Math.floor((distance % (1000 * 60)) / 1000),
         });
@@ -34,63 +35,57 @@ const Banner = () => {
   }, [targetDate]);
 
   return (
-    <div className="px-40 py-10">
-      <div className="flex justify-between bg-black h-3/5 w-full rounded-2xl p-12 items-center">
+    <div className="px-6 sm:px-12 lg:px-40 py-10">
+      <div className="flex flex-col lg:flex-row justify-between items-center bg-black rounded-2xl p-8 sm:p-10 lg:p-12 gap-8">
         {/* LEFT SIDE */}
-        <div className="pl-8">
-          <p className="font-bold text-sm text-green-400 mb-3">Category</p>
-          <p className="text-white font-medium text-5xl mb-8 w-96">
+        <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
+          <p className="font-bold text-sm text-green-400 mb-3 uppercase">
+            Category
+          </p>
+          <p className="text-white font-semibold text-3xl sm:text-4xl lg:text-5xl mb-6 sm:mb-8 max-w-xs sm:max-w-md lg:max-w-lg">
             Enhance Your Music Experience
           </p>
 
-          {/* COUNTDOWN BOX */}
-          <div className="flex items-center gap-3">
-            {/* Days */}
-            <div className="bg-gray-200 text-black rounded-full w-14 h-14 flex flex-col justify-center items-center">
-              <p className="text-sm font-bold leading-none">
-                {String(timeLeft.days).padStart(2, '0')}
-              </p>
-              <p className="text-[9px] font-medium uppercase">Days</p>
-            </div>
-
-            <span className="text-white text-sm font-semibold">:</span>
-
-            {/* Hours */}
-            <div className="bg-gray-200 text-black rounded-full w-14 h-14 flex flex-col justify-center items-center">
-              <p className="text-sm font-bold leading-none">
-                {String(timeLeft.hours).padStart(2, '0')}
-              </p>
-              <p className="text-[9px] font-medium uppercase">Hrs</p>
-            </div>
-
-            <span className="text-white text-sm font-semibold">:</span>
-
-            {/* Minutes */}
-            <div className="bg-gray-200 text-black rounded-full w-14 h-14 flex flex-col justify-center items-center">
-              <p className="text-sm font-bold leading-none">
-                {String(timeLeft.minutes).padStart(2, '0')}
-              </p>
-              <p className="text-[9px] font-medium uppercase">Min</p>
-            </div>
-
-            <span className="text-white text-sm font-semibold">:</span>
-
-            {/* Seconds */}
-            <div className="bg-gray-200 text-black rounded-full w-14 h-14 flex flex-col justify-center items-center">
-              <p className="text-sm font-bold leading-none">
-                {String(timeLeft.seconds).padStart(2, '0')}
-              </p>
-              <p className="text-[9px] font-medium uppercase">Sec</p>
-            </div>
+          {/* COUNTDOWN */}
+          <div className="flex items-center justify-center lg:justify-start gap-2 sm:gap-3 flex-wrap">
+            {/* Countdown Circles */}
+            {[
+              { label: "Days", value: timeLeft.days },
+              { label: "Hrs", value: timeLeft.hours },
+              { label: "Min", value: timeLeft.minutes },
+              { label: "Sec", value: timeLeft.seconds },
+            ].map((unit, idx) => (
+              <React.Fragment key={unit.label}>
+                <div className="bg-gray-200 text-black rounded-full w-12 h-12 sm:w-14 sm:h-14 flex flex-col justify-center items-center">
+                  <p className="text-sm sm:text-base font-bold leading-none">
+                    {String(unit.value).padStart(2, "0")}
+                  </p>
+                  <p className="text-[8px] sm:text-[9px] font-medium uppercase">
+                    {unit.label}
+                  </p>
+                </div>
+                {idx < 3 && (
+                  <span className="text-white text-sm sm:text-base font-semibold">
+                    :
+                  </span>
+                )}
+              </React.Fragment>
+            ))}
           </div>
 
-          <button className="bg-green-500 text-white px-5 py-2 text-sm font-medium mt-8 rounded-md hover:bg-green-600 transition-all duration-200">
+          <button className="bg-green-500 text-white px-5 py-2 sm:px-6 sm:py-2.5 text-sm sm:text-base font-medium mt-6 sm:mt-8 rounded-md hover:bg-green-600 transition-all duration-200">
             Buy Now
           </button>
         </div>
 
         {/* RIGHT SIDE IMAGE */}
-        <img src={Product4} alt="Product" className="h-72 pr-16 object-contain" />
+        <div className="flex justify-center lg:justify-end w-full lg:w-auto">
+          <img
+            src={Product4}
+            alt="Product"
+            className="h-56 sm:h-64 md:h-72 lg:h-80 object-contain"
+          />
+        </div>
       </div>
     </div>
   );
