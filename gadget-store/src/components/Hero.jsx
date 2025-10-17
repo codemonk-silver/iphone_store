@@ -106,7 +106,7 @@ const Hero = () => {
         </div>
 
         {/* 🔹 Sidebar Menu for large screens */}
-        <div className="hidden lg:flex flex-shrink-0 bg-transparent mt-8 mr-6">
+        <div className="hidden lg:flex flex-shrink-0 bg-transparent mt-3 mr-6">
           <div className="flex flex-col space-y-2 text-sm w-full">
             <a href="#" className="flex items-center gap-2 hover:text-indigo-600">
               <span>Woman&apos;s Fashion</span>
@@ -128,7 +128,7 @@ const Hero = () => {
         </div>
 
         {/* 🔹 Carousel */}
-       <div className="flex-1 mt-3 lg:mt-8 max-w-full overflow-hidden rounded-xl relative z-10">
+       <div className="flex-1 mt-3 lg:mt-3 max-w-full overflow-hidden rounded-xl relative z-10">
           <Slider {...settings}>
             {cards.map((card) => (
               <div key={card.id} className="w-full relative">

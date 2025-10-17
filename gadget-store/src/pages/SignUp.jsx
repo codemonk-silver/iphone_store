@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 
 const SignUp = () => {
   return (
-    <div className="pt-10 pb-25">
+    <div className="pt-40 pb-25">
       <div className="flex flex-col md:flex-row h-auto md:h-[70vh] w-full items-center gap-7 md:gap-28">
         {/* 🔹 Left Side (Blue Background with Image) */}
         <div className="bg-sky-300 flex items-center justify-center w-full md:w-1/2 h-[40vh] md:h-[70vh] px-6 md:pl-20">

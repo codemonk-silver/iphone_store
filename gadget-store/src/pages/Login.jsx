@@ -18,7 +18,7 @@ const Login = () => {
   };
 
   return (
-    <div className="pt-10 pb-10 md:pb-25">
+    <div className="pt-40 pb-10 md:pb-25">
       <div className="flex flex-col md:flex-row h-auto md:h-[70vh] w-full items-center gap-7 md:gap-28 px-4 md:px-0">
         <div className="bg-sky-300 flex items-center justify-center w-full md:w-1/2 h-[35vh] sm:h-[40vh] md:h-[70vh] px-4 md:pl-20">
           <img
